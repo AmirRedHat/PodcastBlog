@@ -1,0 +1,92 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>{{user}}</title>
+</head>
+<body>
+
+<a href="{% url 'Account:change_password' %}">Change Password</a>
+    <a href="{% url 'Account:update' pk=user.pk %}">Update Profile</a>
+    <form action="{% url 'Account:delete' pk=user.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+
+    <br/>
+        {% if not user.is_active %}
+            <a href="{% url 'Account:email_verification' %}">Verify your email</a>
+        {% endif %}
+    <br/>
+
+    ------------------------------------
+    <br/>
+    status : {{user.is_active}}
+    <br/>
+    follower count : {{user.followers.count}}
+    <br/>
+    following count : {{user.followings.count}}
+    <br/>
+    ------------------------------------
+
+    <p>{{user}} : {{request.user.pk}}</p>
+    <p>{{user.date}}</p>
+    <p>{{user.biography}}</p>
+    <p>Email : {{user.email}}</p>
+
+    {% if birth_day %}
+        <p>Happy Birth Day</p>
+    {% else %}
+        <p>is not your day</p>
+    {% endif %}
+
+    <br/>
+    <br/>
+
+    <img src="{{user.avatar.url}}" alt="{{user.get_fullname}}">
+
+    <br/>
+    <br/>
+
+    {% if follow %}
+        <button id="follow_btn">UnFollow</button>
+    {% else %}
+        <button id="follow_btn">Follow</button>
+    {% endif %}
+
+</body>
+
+<script>
+
+    $(document).ready(() => {
+        var follow_btn = $("#follow_btn");
+
+        follow_btn.click(() => {
+            if ("{{request.user.pk}}" != "{{user.pk}}"){
+                alert("condition is true");
+                $.ajax({
+                    data: {"user_pk": "{{user.pk}}",
+                           "csrfmiddlewaretoken": "{{csrf_token}}",
+                    },
+                    url:  "{% url 'Account:follow' %}",
+                    type: 'POST',
+                    success: (response) => {
+                            if (response.data == 'follow'){
+                                follow_btn.text("Un Follow");
+                            }
+                            else if (response.data == "unfollow"){
+                                follow_btn.text("Follow");
+                            }
+                    },
+                    error: (response) => {
+                            alert("error");
+                            console.log(response);
+                    }
+            })}
+        })
+    })
+
+</script>
+
+</html>

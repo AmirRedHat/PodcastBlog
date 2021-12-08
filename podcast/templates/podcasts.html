@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcasts</title>
+</head>
+<body>
+
+    {{request.ip_address}}
+    <br/>
+    
+    <br/>
+    <br/>
+    {% if request.is_authenticate %}
+        <a href="{% url 'Account:logout' %}">Logout</a>
+        <br/>
+        <a href="{% url 'Podcast:publish_podcast' %}">Publish a new podcast</a>
+        <br/>
+        <a href="{% url 'Podcast:publish_category' %}">Publish a new Category</a>
+        <br/>
+        <a href="{% url 'Podcast:publish_episode' %}">Publish a new Episode</a>
+        <br/>
+        <h2>Hello <a href="{% url 'Account:single' pk=request.user.pk %}">{{request.user}}</a></h2>
+    {% else %}
+        <a href="{% url 'Account:login' %}">Login</a>
+        <br/>
+        <h2>Hello Stranger</h2>
+    {% endif %}
+    
+    <br/>
+    <br/>
+    {% for podcast in podcasts %}
+        <a href="{% url 'Podcast:podcast' pk=podcast.pk %}">{{podcast}} : {{podcast.category}}</a>
+        <br/>
+    {% empty %}
+        <p>There no any podcast</p>
+    {% endfor %}
+
+</body>
+</html>

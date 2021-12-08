@@ -1,0 +1,24 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+
+    <form action="{% url 'Account:login' %}" method="post">
+
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}">
+        <p><label for="id_email">Email:</label> <input type="email" name="email" value="amir@gmail.com" maxlength="254" required id="id_email"></p>
+        <p><label for="id_password">Password:</label> <input type="text" name="password" value="python" maxlength="128" required id="id_password"></p>
+        
+        <button>Login</button>
+        <a href="{% url 'Account:signup' %}">New Account</a>
+    </form>
+
+
+</body>
+
+</html>

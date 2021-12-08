@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Episode</title>
+</head>
+<body>
+
+    <form action="{% url 'Podcast:update_episode' pk=object.pk %}" method="post">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit">Update</button>
+    </form>
+
+</body>
+</html>

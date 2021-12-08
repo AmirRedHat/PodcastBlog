@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Episodes</title>
+</head>
+<body>
+
+    <a href="{% url 'Podcast:mark_podcast' podcast_pk=podcast.pk %}">Mark this podcast</a>
+    mark count : {{podcast.mark.count}}
+
+    {% if request.user == podcast.user %}
+        <p>You can publish episode more</p>
+        <a href="{% url 'Podcast:publish_episode' %}">Publish</a>
+    {% else %}
+        <a href="{% url 'Account:single' pk=podcast.user.pk %}">Profile Publisher</a>
+    {% endif %}
+    
+    {% for episode in episodes %}
+        <a href="{% url 'Podcast:episode' pk=episode.pk %}">{{episode.title}}</a>
+    {% empty %}
+        <p>There is no any episode</p>
+    {% endfor %}
+</body>
+</html>

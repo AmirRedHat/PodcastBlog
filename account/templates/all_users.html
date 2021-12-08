@@ -1,0 +1,20 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{% static 'jquery.js' %}"></script>    
+    <title>Document</title>
+</head>
+<body>
+    {{request.user}} : {{request.is_authenticate}} : {{request.user.is_superuser}}
+    <br/>
+    <br/>
+    {% for user in users %}
+    
+        {{user.id}} : {{user}} : {{user.email}} : {{user.is_superuser}} : {{user.password}}
+        <br/>
+
+    {% endfor %}
+</body>
+</html>

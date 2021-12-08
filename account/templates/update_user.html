@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update User</title>
+</head>
+<body>
+
+<form action="{% url 'Account:update' pk=user.pk %}" method="post" enctype="multipart/form-data">
+    
+    <input type="hidden" name="csrfmiddlewaretoken", value="{{csrf_token}}" required>
+    <input type="text" name="first_name" id="" value="{{user.first_name}}" required>
+    <input type="text" name="last_name" id="" value="{{user.last_name}}" required>
+    <input type="email" name="email" id="" value="{{user.email}}" required>
+    <input type="file" name="avatar" id="" value="{{user.avatar}}" required>
+    <input type="text" name="biography" id="" value="{{user.biography}}" required>
+    <input type="date" name="birth_day" id="" value="{{user.birth_day}}" required>
+    
+    <button type="submit">Update</button>
+</form>
+
+</body>
+</html>

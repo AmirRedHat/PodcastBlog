@@ -1,0 +1,48 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Episode</title>
+</head>
+<body>
+    {{episode.title}}
+    {{episode.date}}
+    Like Count: {{episode.like.count}}
+    <form action="{% url 'Podcast:like_episode' %}" method="post">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}">
+        <input type="hidden" name="episode_id" value="{{episode.id}}">
+        <button type="submit">Like</button>
+    </form>
+
+    <form action="{% url 'Podcast:delete_episode' pk=episode.pk %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+    <br/>
+    <a href="{% url 'Podcast:update_episode' pk=episode.pk %}">Update Episode</a>
+
+    <br/>
+
+    <form action="{% url 'Podcast:publish_comment' %}" method="post">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}">
+        <input type="hidden" name="episode_id" value="{{episode.id}}">
+        <input type="text" name="body" placeholder="Write your comment here">
+        <button type="submit">Share</button>
+    </form>
+
+    <br/>
+
+    {% for comment in comments %}
+        {{comment.user}} : {{comment}}
+        <br/>
+    {% empty %}
+        <p>there is not any comment yet</p>
+    {% endfor %}
+
+    <audio controls>
+        <source src="{{episode.file.url}}" type="audio/mp3">
+        <p>Your browser doesn't support HTML5 audio. Here is
+    </audio>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{% static 'jquery.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Signup</title>
+</head>
+<body>
+
+    <form action="{% url 'Account:signup' %}" method="POST" enctype="multipart/form-data">
+
+        <!-- <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}">
+        <p><label for="id_first_name">First name:</label> <input type="text" name="first_name" maxlength="100" required id="id_first_name"></p>
+        <p><label for="id_last_name">Last name:</label> <input type="text" name="last_name" maxlength="100" required id="id_last_name"></p>
+        <p><label for="id_email">Email:</label> <input type="email" name="email" maxlength="254" required id="id_email"></p>
+        <p><label for="id_password">Password:</label> <input type="text" name="password" maxlength="128" required id="id_password"></p>
+        <p><label for="id_birth_day">Birth day:</label> <input type="text" name="birth_day" id="id_birth_day"></p>
+        <p><label for="id_avatar">Avatar:</label> <input type="file" name="avatar" accept="image/*" id="id_avatar"></p>
+        <p><label for="id_biography">Biography:</label> <textarea name="biography" cols="40" rows="10" required id="id_biography">
+        </textarea></p> -->
+
+        {% csrf_token %}
+        {{form.as_p}}
+        <button>Sign Up</button>
+
+    </form>
+
+</body>
+
+</html>
